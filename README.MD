@@ -4,6 +4,8 @@
 
 This project successfully developed an AI-powered system to automatically detect and map bicycle parking locations in Nancy, France using street view imagery and YOLOv11 object detection. The system achieved remarkable performance, capable of processing an entire city's street view data in just 53 hours total (50 hours for data collection + 3 hours for AI processing).
 
+repository structure is in a mess because it was not meant to be used more than one time and by someone else sorry 
+
 ### Key Achievements
 - **Data Collection**: 50,000+ street view images from Nancy
 - **AI Training**: YOLOv11 model trained on 1,400 images (420 augmented from 70 manually labeled instances)
