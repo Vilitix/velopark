@@ -1,0 +1,9 @@
+# Bicycle parking dataset configuration
+path: /home/arthur/Bureau/velopark_waypoints/yolo_final/veloparkdataset
+train: images/train
+val: images/val
+test: images/test  # optional
+
+# Classes
+nc: 1  # number of classes
+names: ['velo_park']  # class names based on your project

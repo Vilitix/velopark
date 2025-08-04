@@ -1,0 +1,11 @@
+# Bicycle Parking Detection Dataset
+# Generated automatically
+
+# Dataset paths
+path: /home/arthur/Bureau/velopark_waypoints/yolofinal_v2/final_dataset  # dataset root dir
+train: images/train  # train images (relative to 'path')
+val: images/val  # val images (relative to 'path')
+
+# Classes
+nc: 1  # number of classes
+names: ['bicycle_parking']  # class names
