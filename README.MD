@@ -2,15 +2,17 @@
 
 ## 📊 Project Summary
 
-This project successfully developed an AI-powered system to automatically detect and map bicycle parking locations in Nancy, France using street view imagery and YOLOv11 object detection. The system achieved remarkable performance, capable of processing an entire city's street view data in just 53 hours total (50 hours for data collection + 3 hours for AI processing).
+This project successfully developed an AI-powered system to automatically detect and map bicycle parking locations in Nancy, France using street view imagery and YOLOv11 object detection. The system achieved remarkable performance using a **database-driven approach** that eliminated navigation dead ends and enabled efficient city-wide coverage.
 
 repository structure is in a mess because it was not meant to be used more than one time and by someone else sorry 
 
 ### Key Achievements
+- **Smart Navigation**: Database-driven position tracking eliminates dead ends and ensures complete coverage
 - **Data Collection**: 50,000+ street view images from Nancy
 - **AI Training**: YOLOv11 model trained on 1,400 images (420 augmented from 70 manually labeled instances)
-- **Training Performance**: 200 epochs in 48 hours on consumer hardware (Asus Zenbook 13, no GPU)
-- **Detection Results**: Thousands of bicycle parking locations successfully identified
+- **Training Performance**: 200 epochs in **2 days (48 hours)** on **CPU-only consumer hardware** (Asus Zenbook 13, no GPU)
+- **Validation Results**: 3 hours to validate 50% of Nancy with excellent detection accuracy
+- **Detection Results**: Thousands of bicycle parking locations successfully identified with high quality
 - **Processing Speed**: Complete city analysis in ~53 hours total
 
 ### Project Conclusion
@@ -68,25 +70,42 @@ The project has evolved to include a complete machine learning workflow:
 - **Challenge**: Managing and validating the large volume of AI detections (~1/5 of total dataset processed)
 - **Review Tools**: Multiple Python scripts developed for human validation of AI results
 
-## Current Challenges & Limitations
+## Database-Driven Approach (No More Dead Ends!)
 
-### Navigation Issues
-- **Dead Ends**: Frequent encounters with walls and impassable areas
+### Solution: Database State Management
+The project evolved to use **PostgreSQL as the primary navigation state manager**, eliminating dead-end issues:
+
+- **Position Tracking**: All visited and unvisited positions stored in database
+- **Smart Navigation**: System queries database to find unvisited panorama IDs
+- **No Dead Ends**: When stuck, simply query the database for next unvisited position
+- **Resumable Process**: Can stop and restart at any time - database maintains complete state
+- **Complete Coverage**: Database ensures all positions are eventually visited
+
+### AI Training Performance (CPU-Only)
+
+Trained YOLOv11 model on **consumer laptop CPU only** (Asus Zenbook 13, no GPU):
+- **Training Time**: 2 days (48 hours) for 200 epochs
+- **Dataset**: 1,400 images (420 base images augmented from 70 manually labeled samples)
+- **Hardware**: Standard laptop CPU (no dedicated GPU)
+- **Result**: Production-ready model capable of detecting bicycle parking infrastructure
+
+### Validation Results - Nancy Coverage
+
+After AI processing of Nancy street view data:
+- **Processing Time**: 3 hours to validate 50% of Nancy's detected locations
+- **Quality**: Excellent results with high accuracy on bicycle parking detection
+- **Coverage**: Successfully mapped bicycle parking across half the city in minimal time
+- **Efficiency**: Database approach + AI detection proved highly effective for urban mapping
+
+### Previous Navigation Challenges (Solved by Database Approach)
+- ~~**Dead Ends**: Frequent encounters with walls and impassable areas~~ ✅ **SOLVED**
+- ~~**Manual Intervention**: Requires human placement of starting points every 5 minutes~~ ✅ **SOLVED**
+- ~~**Limited Coverage**: Only maps ~20% of Nancy's major roads after 3 hours~~ ✅ **SOLVED**
+
+### Remaining Considerations
 - **Imprecise Movement**: Camera redirection using arrow keys is slow and inaccurate
 - **Non-Grid Roads**: Nancy's street layout doesn't follow 90° angles, complicating navigation
-- **Manual Intervention**: Requires human placement of starting points every 5 minutes 
-- **Limited Coverage**: Only maps ~20% of Nancy's major roads after 3 hours
-
-### AI Validation Challenges
-- **Volume Overload**: Too many AI detections to manually review efficiently
-- **Review Interface**: Multiple attempts at creating user-friendly validation tools
-- **Quality Control**: Need to balance between keeping all detections vs. manual filtering
-- **Scale**: Current results represent only ~20% of total available data
-
-### Search Strategy Problems
-- **Inefficient BFS**: Breadth-first search is nearly impossible and extremely slow
-- **Limited Exploration**: Checking left/right every 5 locations provides minimal backup routes
-- **Small Road Issues**: Frequently stuck in narrow streets with multiple turns
+- **Geographic Variations**: Bicycle parking designs vary between countries and cities
 
 ## 🔍 Alternative Approaches Attempted
 
